@@ -1,0 +1,9 @@
+$confirmation = Read-Host "Are you Sure You Want To Move Files Older Than 2 Weeks?"
+   if ($confirmation -eq 'y') {
+   # proceed
+New-Item -ItemType Directory -Force -Path '~\Downloads\Older Than 2 Weeks\'
+get-childitem -Path "~\Downloads\" |
+     where-object {$_.LastWriteTime -lt (get-date).AddDays(-14)} |
+     move-item -destination "~\Downloads\Older Than 2 Weeks\"
+write-host "Complete!"
+}
